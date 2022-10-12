@@ -16,11 +16,4 @@
 @synthesize metricschanged;
 @synthesize everythingchanged;
 
-- (void) dealloc {
-	self.windows = nil;
-	self.rootwintag = nil;
-	self.specialrequest = nil;
-	[super dealloc];
-}
-
 @end

@@ -134,7 +134,7 @@
 		[library.filerefs addObject:self];
 		
 		if (library.dispatch_register_obj)
-			disprock = (*library.dispatch_register_obj)(self, gidisp_Class_Fileref);
+			disprock = (*library.dispatch_register_obj)((__bridge void *)(self), gidisp_Class_Fileref);
 	}
 	
 	return self;
@@ -173,7 +173,6 @@
 	
 	self.library = nil;
 
-	[super dealloc];
 }
 
 - (NSString *) description {
@@ -196,11 +195,8 @@
 }
 
 - (void) filerefDelete {
-	/* We don't want this object to evaporate in the middle of this method. */
-	[[self retain] autorelease];
-	
 	if (library.dispatch_unregister_obj)
-		(*library.dispatch_unregister_obj)(self, gidisp_Class_Fileref, disprock);
+		(*library.dispatch_unregister_obj)((__bridge void *)(self), gidisp_Class_Fileref, disprock);
 		
 	if (![library.filerefs containsObject:self])
 		[NSException raise:@"GlkException" format:@"GlkFileRef was not in library filerefs list"];

@@ -7,15 +7,17 @@
 #import <Foundation/Foundation.h>
 #include "glk.h"
 
-typedef struct FontVariants_struct {
-	UIFont *normal;
-	UIFont *italic;
-	UIFont *bold;
-} FontVariants;
+@interface FontVariants : NSObject
+
+@property (nonatomic, strong) UIFont *normal;
+@property (nonatomic, strong) UIFont *italic;
+@property (nonatomic, strong) UIFont *bold;
+
+@end
 
 @interface StyleSet : NSObject {
-	UIFont **fonts; /* array[style_NUMSTYLES] of retained UIFonts (malloced) */
-	UIColor **colors; /* array[style_NUMSTYLES] of retained UIColors (malloced) */
+	NSMutableArray *fonts; /* array of UIFonts (or NSNull during initialization) */
+	NSMutableArray *colors; /* array UIColors (or NSNull during initialization) */
 	CGFloat leading; /* extra space below each line (uniform across all styles) */
 	CGSize charbox; /* maximum size of a single rendered character (normal style) (including leading) */
 	UIColor *backgroundcolor; /* background color for window */
@@ -23,16 +25,16 @@ typedef struct FontVariants_struct {
 	CGSize margintotal; /* width = left+right; height = top+bottom */
 }
 
-@property (nonatomic, readonly) UIFont **fonts;
-@property (nonatomic, readonly) UIColor **colors;
+@property (nonatomic, readonly) NSMutableArray<UIFont *> *fonts;
+@property (nonatomic, readonly) NSMutableArray<UIColor *> *colors;
 @property (nonatomic) CGFloat leading;
 @property (nonatomic) CGSize charbox;
-@property (nonatomic, retain) UIColor *backgroundcolor;
+@property (nonatomic, strong) UIColor *backgroundcolor;
 @property (nonatomic) UIEdgeInsets margins;
 @property (nonatomic) CGSize margintotal;
 
 + (StyleSet *) buildForWindowType:(glui32)wintype rock:(glui32)rock;
-+ (FontVariants) fontVariantsForSize:(CGFloat)size name:(NSString *)first, ...;
++ (FontVariants *) fontVariantsForSize:(CGFloat)size name:(NSString *)first, ...;
 
 - (void) completeForWindowType:(glui32)wintype;
 

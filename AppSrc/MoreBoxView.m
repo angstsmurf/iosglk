@@ -10,9 +10,4 @@
 
 @synthesize frameview;
 
-- (void) dealloc {
-	self.frameview = nil;
-	[super dealloc];
-}
-
 @end

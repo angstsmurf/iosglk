@@ -12,7 +12,7 @@
 @class Geometry;
 
 @interface GlkWindowState : NSObject {
-	GlkLibraryState *library; // weak parent link (unretained)
+	__unsafe_unretained GlkLibraryState *library; // weak parent link (unretained)
 	
 	NSNumber *tag;
 	glui32 type;

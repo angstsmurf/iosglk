@@ -27,7 +27,7 @@
 + (StyleSet *) buildForWindowType:(glui32)wintype rock:(glui32)rock {
 	GlkLibrary *library = [GlkLibrary singleton];
 	
-	StyleSet *styles = [[[StyleSet alloc] init] autorelease];
+	StyleSet *styles = [[StyleSet alloc] init];
 	[library.glkdelegate prepareStyles:styles forWindowType:wintype rock:rock];
 	[styles completeForWindowType:wintype];
 
@@ -40,8 +40,8 @@
  
 	This returns a struct containing non-retained (autoreleased) UIFont objects.
  */
-+ (FontVariants) fontVariantsForSize:(CGFloat)size name:(NSString *)first, ... {
-	FontVariants variants;
++ (FontVariants *) fontVariantsForSize:(CGFloat)size name:(NSString *)first, ... {
+	FontVariants *variants = nil; //###
 	variants.normal = nil;
 	variants.italic = nil;
 	variants.bold = nil;
@@ -115,45 +115,27 @@
 	self = [super init];
 	
 	if (self) {
+		NSNull *nullval = [NSNull null];
+		
 		charbox = CGSizeZero;
 		margins = UIEdgeInsetsZero;
 		leading = 0;
 		margintotal = CGSizeZero;
 		self.backgroundcolor = [UIColor whiteColor];
 		/* We have to malloc these buffers. I tried embedding it as an array of pointers in the StyleSet object, but ObjC threw a hissy-cow. */
-		fonts = malloc(sizeof(UIFont*) * style_NUMSTYLES);
+        fonts = [[NSMutableArray alloc] initWithCapacity:style_NUMSTYLES];
 		for (int ix=0; ix<style_NUMSTYLES; ix++)
-			fonts[ix] = nil;
-		colors = malloc(sizeof(UIColor*) * style_NUMSTYLES);
+			fonts[ix] = nullval;
+        colors = [[NSMutableArray alloc] initWithCapacity:style_NUMSTYLES];
 		for (int ix=0; ix<style_NUMSTYLES; ix++)
-			colors[ix] = nil;
+			colors[ix] = nullval;
 	}
 	
 	return self;
 }
 
-- (void) dealloc {
-	for (int ix=0; ix<style_NUMSTYLES; ix++) {
-		if (fonts[ix]) {
-			[fonts[ix] release];
-			fonts[ix] = nil;
-		}
-		if (colors[ix]) {
-			[colors[ix] release];
-			colors[ix] = nil;
-		}
-	}
-	free(fonts);
-	free(colors);
-	fonts = nil;
-	colors = nil;
-	self.backgroundcolor = nil;
-	[super dealloc];
-}
-
 - (void) completeForWindowType:(glui32)wintype {
-	/* Fill in any fonts and colors that were omitted. Use autoreleased references at this point. */
-	
+    
 	for (int ix=0; ix<style_NUMSTYLES; ix++) {
 		if (!fonts[ix]) {
 			switch (ix) {
@@ -180,13 +162,7 @@
 			}
 		}
 	}
-	
-	/* The delegate prepareStyles method (also the code above) filled the arrays with autoreleased fonts and colors. We retain them now. */
-	for (int ix=0; ix<style_NUMSTYLES; ix++) {
-		[fonts[ix] retain];
-		[colors[ix] retain];
-	}
-	
+
 	CGSize size;
 	size = [@"W" sizeWithFont:fonts[style_Normal]];
 	charbox = size;

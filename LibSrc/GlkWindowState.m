@@ -25,13 +25,13 @@
 	
 	switch (type) {
 		case wintype_TextBuffer:
-			state = [[[GlkWindowBufferState alloc] initWithType:type rock:rock] autorelease];
+			state = [[GlkWindowBufferState alloc] initWithType:type rock:rock];
 			break;
 		case wintype_TextGrid:
-			state = [[[GlkWindowGridState alloc] initWithType:type rock:rock] autorelease];
+			state = [[GlkWindowGridState alloc] initWithType:type rock:rock];
 			break;
 		case wintype_Pair:
-			state = [[[GlkWindowPairState alloc] initWithType:type rock:rock] autorelease];
+			state = [[GlkWindowPairState alloc] initWithType:type rock:rock];
 			break;
 		default:
 			[GlkLibrary strictWarning:@"windowStateWithType: unknown type"];
@@ -51,15 +51,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	self.library = nil;
-	self.tag = nil;
-	self.styleset = nil;
-	self.line_request_initial = nil;
-	[super dealloc];
-}
-
-
 @end
 
 
@@ -71,11 +62,6 @@
 @synthesize curx;
 @synthesize cury;
 
-- (void) dealloc {
-	self.lines = nil;
-	[super dealloc];
-}
-
 @end
 
 
@@ -86,22 +72,12 @@
 @synthesize linesdirtyto;
 @synthesize clearcount;
 
-- (void) dealloc {
-	self.lines = nil;
-	[super dealloc];
-}
-
 @end
 
 
 @implementation GlkWindowPairState
 
 @synthesize geometry;
-
-- (void) dealloc {
-	self.geometry = nil;
-	[super dealloc];
-}
 
 @end
 

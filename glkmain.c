@@ -52,13 +52,13 @@ void glk_main() {
 			if (!strcmp(inbuf, "load") || !strcmp(inbuf, "restore")) {
 				glk_put_string("Load at file...\n");
 				frefid_t fileref = glk_fileref_create_by_prompt(fileusage_SavedGame|fileusage_BinaryMode, filemode_Read, 123);
-				sprintf(buf, "Created fileref %x!\n", (glui32)fileref);
+//				sprintf(buf, "Created fileref %x!\n", (glui32)fileref);
 				glk_put_string(buf);
 			}
 			if (!strcmp(inbuf, "save") || !strcmp(inbuf, "store")) {
 				glk_put_string("Save at file...\n");
 				frefid_t fileref = glk_fileref_create_by_prompt(fileusage_SavedGame|fileusage_BinaryMode, filemode_Write, 123);
-				sprintf(buf, "Created fileref %x!\n", (glui32)fileref);
+//				sprintf(buf, "Created fileref %x!\n", (glui32)fileref);
 				glk_put_string(buf);
 				if (fileref) {
 					strid_t str = glk_stream_open_file(fileref, filemode_Write, 1);

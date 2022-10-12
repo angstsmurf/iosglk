@@ -42,15 +42,6 @@
 	return self;
 }
 
-- (void) dealloc {
-	input_request_id = 0;
-	self.inputfield = nil;
-	self.inputholder = nil;
-	self.styleset = nil;
-	self.winstate = nil;
-	[super dealloc];
-}
-
 - (GlkFrameView *) superviewAsFrameView {
 	return (GlkFrameView *)self.superview;
 }
@@ -111,10 +102,10 @@
 	
 	if (wants_input) {
 		if (!inputfield) {
-			self.inputfield = [[[CmdTextField alloc] initWithFrame:CGRectZero] autorelease];
+			self.inputfield = [[CmdTextField alloc] initWithFrame:CGRectZero];
 			self.inputfield.opaque = NO;
 			self.inputfield.backgroundColor = nil;
-			self.inputholder = [[[UIScrollView alloc] initWithFrame:CGRectZero] autorelease];
+			self.inputholder = [[UIScrollView alloc] initWithFrame:CGRectZero];
 			self.inputholder.opaque = NO;
 			self.inputholder.backgroundColor = nil;
 			[inputholder addSubview:inputfield];
@@ -232,7 +223,7 @@
 	GlkFrameView *frameview = self.superviewAsFrameView;
 	CGRect rect = [inputfield rightViewRectForBounds:inputfield.bounds];
 	rect = [frameview convertRect:rect fromView:inputfield];
-	InputMenuView *menuview = [[[InputMenuView alloc] initWithFrame:frameview.bounds buttonFrame:rect view:self history:glkviewc.commandhistory] autorelease];
+	InputMenuView *menuview = [[InputMenuView alloc] initWithFrame:frameview.bounds buttonFrame:rect view:self history:glkviewc.commandhistory];
 	[frameview postPopMenu:menuview];	
 }
 

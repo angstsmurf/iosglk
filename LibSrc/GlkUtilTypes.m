@@ -62,7 +62,6 @@
 		accessel.line = nil; /* clear the weak parent link */
 		self.accessel = nil;
 	}
-	[super dealloc];
 }
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
@@ -195,7 +194,6 @@
 
 - (void) dealloc {
 	self.str = nil;
-	[super dealloc];
 }
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
@@ -265,7 +263,6 @@
 		free(letterpos);
 		letterpos = nil;
 	}
-	[super dealloc];
 }
 
 - (CGFloat) bottom {
@@ -274,7 +271,7 @@
 
 - (CGFloat) right {
 	if (right < 0) {
-		UIFont **fonts = styleset.fonts;
+		NSMutableArray<UIFont *> *fonts = styleset.fonts;
 		CGFloat ptx = xstart;
 		for (GlkVisualString *vwd in arr) {
 			UIFont *font = fonts[vwd.style];
@@ -307,7 +304,7 @@
 	if (!letterpos) {
 		letterpos = (CGFloat *)malloc(sizeof(CGFloat) * (1+concatlen));
 		
-		UIFont **fonts = styleset.fonts;
+        NSMutableArray<UIFont *> *fonts = styleset.fonts;
 		
 		CGFloat wdxstart = xstart;
 		CGFloat wdxpos = wdxstart;
@@ -409,7 +406,6 @@
 
 - (void) dealloc {
 	self.str = nil;
-	[super dealloc];
 }
 
 @end
@@ -479,7 +475,6 @@
 		free(styles);
 		styles = NULL;
 	}
-	[super dealloc];
 }
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
@@ -548,7 +543,6 @@
 - (void) dealloc {
 	self.tag = nil;
 	self.str = nil;
-	[super dealloc];
 }
 
 @end

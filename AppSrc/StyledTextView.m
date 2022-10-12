@@ -67,7 +67,6 @@
 	self.linesviews = nil;
 	self.styleset = nil;
 	self.selectionview = nil;
-	[super dealloc];
 }
 
 - (GlkWinBufferView *) superviewAsBufferView {
@@ -499,7 +498,7 @@
 			range.location = endlaid;
 			range.length = newend - endlaid;
 			NSArray *subarr = [vlines subarrayWithRange:range];
-			VisualLinesView *linev = [[[VisualLinesView alloc] initWithFrame:CGRectZero styles:styleset vlines:subarr] autorelease];
+			VisualLinesView *linev = [[VisualLinesView alloc] initWithFrame:CGRectZero styles:styleset vlines:subarr];
 			linev.frame = CGRectMake(visbounds.origin.x, linev.ytop, visbounds.size.width, linev.height);
 			[linesviews addObject:linev];
 			[self insertSubview:linev atIndex:0];
@@ -546,7 +545,7 @@
 			range.location = newstart;
 			range.length = startlaid - newstart;
 			NSArray *subarr = [vlines subarrayWithRange:range];
-			VisualLinesView *linev = [[[VisualLinesView alloc] initWithFrame:CGRectZero styles:styleset vlines:subarr] autorelease];
+			VisualLinesView *linev = [[VisualLinesView alloc] initWithFrame:CGRectZero styles:styleset vlines:subarr];
 			linev.frame = CGRectMake(visbounds.origin.x, linev.ytop, visbounds.size.width, linev.height);
 			[linesviews insertObject:linev atIndex:0];
 			[self insertSubview:linev atIndex:0];
@@ -713,7 +712,7 @@
 			return nil;
 	}
 	
-	UIFont **fonts = styleset.fonts;
+	NSMutableArray<UIFont *> *fonts = styleset.fonts;
 	CGFloat leading = styleset.leading;
 	CGFloat normalpointsize = styleset.charbox.height; // includes leading
 	NSMutableArray *result = [NSMutableArray arrayWithCapacity:32]; // vlines laid out
@@ -811,8 +810,7 @@
 					
 					GlkVisualString *vwd = [[GlkVisualString alloc] initWithText:wdtext style:sstr.style];
 					[tmparr addObject:vwd];
-					[vwd release];
-					
+
 					hpos += wordsize.width;
 					
 					CGFloat lineheight = sfont.lineHeight;
@@ -837,7 +835,7 @@
 			if (maxheight < 2)
 				maxheight = normalpointsize;
 
-			GlkVisualLine *vln = [[[GlkVisualLine alloc] initWithStrings:tmparr styles:styleset] autorelease];
+			GlkVisualLine *vln = [[GlkVisualLine alloc] initWithStrings:tmparr styles:styleset];
 			// vln.vlinesnum will be filled in by the caller.
 			vln.ypos = ypos;
 			vln.linenum = snum;
@@ -1007,7 +1005,7 @@
 	selectionarea = rect;
 	
 	if (!selectionview) {
-		self.selectionview = [[[TextSelectView alloc] initWithFrame:CGRectZero] autorelease];
+		self.selectionview = [[TextSelectView alloc] initWithFrame:CGRectZero];
 		[self addSubview:selectionview];
 		
 		rect.origin = RectCenter(selectionarea);
@@ -1275,7 +1273,7 @@
 				/* Send an animated label flying downhill */
 				rect = CGRectInset(rect, -4, -2);
 				rect.origin.x += viewmargin.left;
-				UILabel *label = [[[UILabel alloc] initWithFrame:rect] autorelease];
+				UILabel *label = [[UILabel alloc] initWithFrame:rect];
 				label.font = styleset.fonts[style_Normal];
 				label.text = wd;
 				label.textAlignment = NSTextAlignmentCenter;
@@ -1285,7 +1283,7 @@
 				CGPoint newpt = RectCenter(winv.inputholder.frame);
 				CGSize curinputsize = [winv.inputfield.text sizeWithFont:winv.inputfield.font];
 				newpt.x = winv.inputholder.frame.origin.x + curinputsize.width + 0.5*rect.size.width;
-				[UIView beginAnimations:@"labelFling" context:label];
+                [UIView beginAnimations:@"labelFling" context:(__bridge void * _Nullable)(label)];
 				[UIView setAnimationDelegate:self];
 				[UIView setAnimationDuration:0.3];
 				[UIView setAnimationDidStopSelector:@selector(labelFlingEnd:finished:context:)];
@@ -1307,7 +1305,7 @@
 }
 
 - (void) labelFlingEnd:(NSString *)animid finished:(NSNumber *)finished context:(void *)context {
-	UILabel *label = (UILabel *)context;
+    UILabel *label = (__bridge UILabel *)context;
 	[label removeFromSuperview];
 }
 
@@ -1393,18 +1391,12 @@
 	return self;
 }
 
-- (void) dealloc {
-	self.vlines = nil;
-	self.styleset = nil;
-	[super dealloc];
-}
-
 - (void) drawRect:(CGRect)rect {
 	//NSLog(@"StyledTextView: drawRect %@ (bounds are %@)", StringFromRect(rect), StringFromRect(self.bounds));
 	CGContextRef gc = UIGraphicsGetCurrentContext();
 		
-	UIFont **fonts = styleset.fonts;
-	UIColor **colors = styleset.colors;
+	NSMutableArray<UIFont *> *fonts = styleset.fonts;
+    NSMutableArray<UIColor *> *colors = styleset.colors;
 	
 	/* We'll be using a limited list of colors, so it makes sense to track them by identity. */
 	UIColor *lastcolor = nil;
