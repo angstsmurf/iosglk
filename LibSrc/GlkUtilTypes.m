@@ -27,11 +27,11 @@
     return YES;
 }
 
-- (id) initWithIndex:(int)indexval {
+- (instancetype) initWithIndex:(int)indexval {
 	return [self initWithIndex:indexval status:linestat_Continue];
 }
 
-- (id) initWithIndex:(int)indexval status:(GlkStyledLineStatus) statusval {
+- (instancetype) initWithIndex:(int)indexval status:(GlkStyledLineStatus) statusval {
 	self = [super init];
 	
 	if (self) {
@@ -43,7 +43,7 @@
 	return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
 	index = [decoder decodeIntForKey:@"index"];
 	status = [decoder decodeIntForKey:@"status"];
 	self.arr = [decoder decodeObjectForKey:@"arr"];
@@ -176,7 +176,7 @@
     return YES;
 }
 
-- (id) initWithText:(NSString *)initstr style:(glui32)initstyle {
+- (instancetype) initWithText:(NSString *)initstr style:(glui32)initstyle {
 	self = [super init];
 	
 	if (self) {
@@ -189,7 +189,7 @@
 	return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
 	self.str = [decoder decodeObjectForKey:@"str"];
 	style = [decoder decodeInt32ForKey:@"style"];
 	pos = [decoder decodeIntForKey:@"pos"];
@@ -240,7 +240,7 @@
 @synthesize linenum;
 @synthesize accessel;
 
-- (id) initWithStrings:(NSArray *)strings styles:(StyleSet *)styles {
+- (instancetype) initWithStrings:(NSArray *)strings styles:(StyleSet *)styles {
 	self = [super init];
 	
 	if (self) {
@@ -390,7 +390,7 @@
 @synthesize str;
 @synthesize style;
 
-- (id) initWithText:(NSString *)initstr style:(glui32)initstyle {
+- (instancetype) initWithText:(NSString *)initstr style:(glui32)initstyle {
 	self = [super init];
 	
 	if (self) {
@@ -418,7 +418,7 @@
     return YES;
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -434,7 +434,7 @@
 	return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
 	dirty = YES; // when loaded, all dirty
 	width = [decoder decodeIntForKey:@"width"];
 	maxwidth = [decoder decodeIntForKey:@"maxwidth"];
@@ -527,7 +527,7 @@
 @synthesize tag;
 @synthesize str;
 
-- (id) initWithTag:(NSNumber *)tagval text:(NSString *)strval {
+- (instancetype) initWithTag:(NSNumber *)tagval text:(NSString *)strval {
 	self = [super init];
 	
 	if (self) {

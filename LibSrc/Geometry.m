@@ -34,7 +34,7 @@
     return YES;
 }
 
-- (id) init {
+- (instancetype) init {
 	self = [super init];
 	
 	if (self) {
@@ -47,7 +47,7 @@
 	return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
 	self.dir = [decoder decodeInt32ForKey:@"dir"]; // use setter to set vertical and backward too
 	division = [decoder decodeInt32ForKey:@"division"];
 	hasborder = [decoder decodeBoolForKey:@"hasborder"];

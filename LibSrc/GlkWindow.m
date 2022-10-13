@@ -77,7 +77,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 }
 
 /* GlkWindow designated initializer. */
-- (id) initWithType:(glui32)wintype rock:(glui32)winrock {
+- (instancetype) initWithType:(glui32)wintype rock:(glui32)winrock {
 	self = [super init];
 	
 	if (!_GlkWindow_newlineCharSet) {
@@ -122,7 +122,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 	return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
 	if (!_GlkWindow_newlineCharSet) {
 		/* We need this for breaking up printing strings, so we set it up at init time. I think this shows up as a memory leak in Apple's tools -- sorry about that. */
 		_GlkWindow_newlineCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
@@ -589,7 +589,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
     return YES;
 }
 
-- (id) initWithType:(glui32)wintype rock:(glui32)winrock {
+- (instancetype) initWithType:(glui32)wintype rock:(glui32)winrock {
 	self = [super initWithType:wintype rock:winrock];
 	
 	if (self) {
@@ -601,7 +601,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 	return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
 	self = [super initWithCoder:decoder];
 	
 	if (self) {
@@ -640,7 +640,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 
 	int dirtyto = 0;
 	if (lines.count) {
-		GlkStyledLine *sln = [lines lastObject];
+		GlkStyledLine *sln = lines.lastObject;
 		dirtyto = sln.index+1;
 	}
 	
@@ -699,7 +699,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 	
 	int linestart = 0;
 	if (lines.count) {
-		GlkStyledLine *firstln = [lines objectAtIndex:0];
+		GlkStyledLine *firstln = lines[0];
 		linestart = firstln.index;
 	}
 	
@@ -719,7 +719,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 			continue;
 		}
 		
-		GlkStyledLine *lastsln = [lines lastObject];
+		GlkStyledLine *lastsln = lines.lastObject;
 		if (!lastsln) {
 			lastsln = [[GlkStyledLine alloc] initWithIndex:linestart+lines.count status:linestat_Continue];
 			[lines addObject:lastsln];
@@ -727,7 +727,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 		if (linesdirtyfrom > lastsln.index)
 			linesdirtyfrom = lastsln.index;
 		
-		GlkStyledString *laststr = [lastsln.arr lastObject];
+		GlkStyledString *laststr = (lastsln.arr).lastObject;
 		if (laststr && laststr.style == style) {
 			[laststr appendString:ln];
 		}
@@ -745,7 +745,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 - (void) dirtyAllData {
 	linesdirtyfrom = 0;
 	if (lines.count) {
-		GlkStyledLine *firstln = [lines objectAtIndex:0];
+		GlkStyledLine *firstln = lines[0];
 		linesdirtyfrom = firstln.index;
 	}
 }
@@ -775,7 +775,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
     return YES;
 }
 
-- (id) initWithType:(glui32)wintype rock:(glui32)winrock {
+- (instancetype) initWithType:(glui32)wintype rock:(glui32)winrock {
 	self = [super initWithType:wintype rock:winrock];
 	
 	if (self) {
@@ -790,7 +790,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 	return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
 	self = [super initWithCoder:decoder];
 	
 	if (self) {
@@ -838,7 +838,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 	NSMutableArray *linearr = [NSMutableArray arrayWithCapacity:lines.count];
 
 	for (int jx=0; jx<lines.count; jx++) {
-		GlkGridLine *ln = [lines objectAtIndex:jx];
+		GlkGridLine *ln = lines[jx];
 		if (!ln.dirty)
 			continue;
 		ln.dirty = NO;
@@ -887,7 +887,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 		[lines addObject:[[GlkGridLine alloc] init]];
 		
 	for (GlkGridLine *ln in lines)
-		[ln setWidth:width];
+		ln.width = width;
 }
 
 - (void) getWidth:(glui32 *)widthref height:(glui32 *)heightref {
@@ -952,7 +952,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 		return;
 	}
 	
-	GlkGridLine *ln = [lines objectAtIndex:cury];
+	GlkGridLine *ln = lines[cury];
 	DEBUG_PARANOID_ASSERT(curx < ln.width, @"grid putUChar overflow");
 	ln.chars[curx] = ch;
 	ln.styles[curx] = style;
@@ -978,7 +978,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 
 /* GlkWindowPair gets a special initializer. (Only called from glk_window_open() when a window is split.)
 */
-- (id) initWithMethod:(glui32)method keywin:(GlkWindow *)keywin size:(glui32)initsize {
+- (instancetype) initWithMethod:(glui32)method keywin:(GlkWindow *)keywin size:(glui32)initsize {
 	self = [super initWithType:wintype_Pair rock:0];
 	
 	if (self) {
@@ -998,7 +998,7 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 	return self;
 }
 
-- (id) initWithCoder:(NSCoder *)decoder {
+- (instancetype) initWithCoder:(NSCoder *)decoder {
 	self = [super initWithCoder:decoder];
 	
 	if (self) {
