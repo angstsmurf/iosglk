@@ -15,7 +15,7 @@
 	NSString *pathname;
 }
 
-- (instancetype) initWithUsage:(glui32)usage fmode:(glui32)fmode dirname:(NSString *)dirname NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithUsage:(glui32)usage fmode:(glui32)fmode dirname:(NSString *)dirname;
 
 @property (nonatomic) glui32 usage;
 @property (nonatomic) glui32 fmode;

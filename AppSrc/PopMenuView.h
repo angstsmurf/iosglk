@@ -30,7 +30,7 @@
 
 - (instancetype) initWithFrame:(CGRect)frame centerInFrame:(CGRect)rect;
 - (instancetype) initWithFrame:(CGRect)frame buttonFrame:(CGRect)rect belowButton:(BOOL)below;
-- (instancetype) initWithFrame:(CGRect)frame buttonFrame:(CGRect)rect vertAlign:(int)vertval horizAlign:(int)horval NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithFrame:(CGRect)frame buttonFrame:(CGRect)rect vertAlign:(int)vertval horizAlign:(int)horval;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkFrameView *superviewAsFrameView;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *bottomDecorNib;
 - (void) loadContent;

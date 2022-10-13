@@ -42,7 +42,7 @@ typedef enum GlkStyledLineStatus_enum {
 @property (nonatomic, strong) GlkAccStyledLine *accessel;
 
 - (instancetype) initWithIndex:(int)index;
-- (instancetype) initWithIndex:(int)index status:(GlkStyledLineStatus) status NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithIndex:(int)index status:(GlkStyledLineStatus) status;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *concatLine;
 - (NSString *) wordAtPos:(CGFloat)xpos styles:(StyleSet *)styleset;
 - (NSString *) wordAtPos:(CGFloat)xpos styles:(StyleSet *)styleset inBox:(CGRect *)boxref;
@@ -62,7 +62,7 @@ typedef enum GlkStyledLineStatus_enum {
 @property (nonatomic) glui32 style;
 @property (nonatomic) int pos;
 
-- (instancetype) initWithText:(NSString *)str style:(glui32)style NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithText:(NSString *)str style:(glui32)style;
 - (void) appendString:(NSString *)newstr;
 - (void) freeze;
 
@@ -96,7 +96,7 @@ typedef enum GlkStyledLineStatus_enum {
 @property (nonatomic, strong) StyleSet *styleset;
 @property (nonatomic, strong) GlkAccVisualLine *accessel;
 
-- (instancetype) initWithStrings:(NSArray *)strings styles:(StyleSet *)styles NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithStrings:(NSArray *)strings styles:(StyleSet *)styles;
 @property (NS_NONATOMIC_IOSONLY, readonly) CGFloat bottom;
 @property (NS_NONATOMIC_IOSONLY, readonly) CGFloat right;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *concatLine;
@@ -115,7 +115,7 @@ typedef enum GlkStyledLineStatus_enum {
 @property (nonatomic, strong) NSString *str;
 @property (nonatomic) glui32 style;
 
-- (instancetype) initWithText:(NSString *)str style:(glui32)style NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithText:(NSString *)str style:(glui32)style;
 
 @end
 
@@ -143,7 +143,7 @@ typedef enum GlkStyledLineStatus_enum {
 	NSString *str;
 }
 
-- (instancetype) initWithTag:(NSNumber *)tag text:(NSString *)str NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithTag:(NSNumber *)tag text:(NSString *)str;
 
 @property (nonatomic, strong) NSNumber *tag;
 @property (nonatomic, strong) NSString *str;

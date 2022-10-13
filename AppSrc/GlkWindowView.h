@@ -40,7 +40,7 @@ typedef enum SelDragMode_enum {
 @property (nonatomic, strong) UIScrollView *inputholder;
 @property (nonatomic) BOOL morewaiting;
 
-- (instancetype) initWithWindow:(GlkWindowState *)winstate frame:(CGRect)box margin:(UIEdgeInsets)margin NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithWindow:(GlkWindowState *)winstate frame:(CGRect)box margin:(UIEdgeInsets)margin;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkFrameView *superviewAsFrameView;
 - (void) updateFromWindowState;
 - (void) updateFromWindowInputs;

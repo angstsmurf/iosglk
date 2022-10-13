@@ -123,69 +123,71 @@ NSCharacterSet *_GlkWindow_newlineCharSet; /* retained forever */
 }
 
 - (instancetype) initWithCoder:(NSCoder *)decoder {
-	if (!_GlkWindow_newlineCharSet) {
-		/* We need this for breaking up printing strings, so we set it up at init time. I think this shows up as a memory leak in Apple's tools -- sorry about that. */
-		_GlkWindow_newlineCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
-	}
-	
-	self.tag = [decoder decodeObjectForKey:@"tag"];
-	inlibrary = YES;
-	// self.library will be set later
-	
-	type = [decoder decodeInt32ForKey:@"type"];
-	rock = [decoder decodeInt32ForKey:@"rock"];
-	// disprock is handled by the app
+    self = [super init];
+    if (self) {
+        if (!_GlkWindow_newlineCharSet) {
+            /* We need this for breaking up printing strings, so we set it up at init time. I think this shows up as a memory leak in Apple's tools -- sorry about that. */
+            _GlkWindow_newlineCharSet = [NSCharacterSet characterSetWithCharactersInString:@"\n"];
+        }
 
-	self.parenttag = [decoder decodeObjectForKey:@"parenttag"];
-	// parent will be set later
-	
-	input_request_id = [decoder decodeIntForKey:@"input_request_id"];
-	
-	char_request = [decoder decodeBoolForKey:@"char_request"];
-	line_request = [decoder decodeBoolForKey:@"line_request"];
-	char_request_uni = [decoder decodeBoolForKey:@"char_request_uni"];
-	line_request_uni = [decoder decodeBoolForKey:@"line_request_uni"];
+        self.tag = [decoder decodeObjectForKey:@"tag"];
+        inlibrary = YES;
+        // self.library will be set later
 
-	line_buffer_length = [decoder decodeInt32ForKey:@"line_buffer_length"];
-	if (line_buffer_length) {
-		// the decoded "line_buffer" values are originally Glulx addresses (glui32), so stuffing them into a long is safe.
-		if (!line_request_uni) {
-			tempbufkey = (long)[decoder decodeInt64ForKey:@"line_buffer"];
-			uint8_t *rawdata;
-			NSUInteger rawdatalen;
-			rawdata = (uint8_t *)[decoder decodeBytesForKey:@"line_buffer_data" returnedLength:&rawdatalen];
-			if (rawdata && rawdatalen) {
-				tempbufdatalen = rawdatalen;
-				tempbufdata = malloc(rawdatalen);
-				memcpy(tempbufdata, rawdata, rawdatalen);
-			}
-		}
-		else {
-			tempbufkey = (long)[decoder decodeInt64ForKey:@"line_buffer"];
-			uint8_t *rawdata;
-			NSUInteger rawdatalen;
-			rawdata = (uint8_t *)[decoder decodeBytesForKey:@"line_buffer_data" returnedLength:&rawdatalen];
-			if (rawdata && rawdatalen) {
-				tempbufdatalen = rawdatalen;
-				tempbufdata = malloc(rawdatalen);
-				memcpy(tempbufdata, rawdata, rawdatalen);
-			}
-		}
-	}
-	
-	self.line_request_initial = [decoder decodeObjectForKey:@"line_request_initial"];
-	pending_echo_line_input = [decoder decodeBoolForKey:@"pending_echo_line_input"];
-	echo_line_input = [decoder decodeBoolForKey:@"echo_line_input"];
-	style = [decoder decodeInt32ForKey:@"style"];
+        type = [decoder decodeInt32ForKey:@"type"];
+        rock = [decoder decodeInt32ForKey:@"rock"];
+        // disprock is handled by the app
 
-	self.streamtag = [decoder decodeObjectForKey:@"streamtag"];
-	// streamtag will be set later
-	self.echostreamtag = [decoder decodeObjectForKey:@"echostreamtag"];
-	// echostreamtag will be set later
+        self.parenttag = [decoder decodeObjectForKey:@"parenttag"];
+        // parent will be set later
 
-	bbox = [decoder decodeCGRectForKey:@"bbox"];
-	// styleset is not deserialized.
+        input_request_id = [decoder decodeIntForKey:@"input_request_id"];
 
+        char_request = [decoder decodeBoolForKey:@"char_request"];
+        line_request = [decoder decodeBoolForKey:@"line_request"];
+        char_request_uni = [decoder decodeBoolForKey:@"char_request_uni"];
+        line_request_uni = [decoder decodeBoolForKey:@"line_request_uni"];
+
+        line_buffer_length = [decoder decodeInt32ForKey:@"line_buffer_length"];
+        if (line_buffer_length) {
+            // the decoded "line_buffer" values are originally Glulx addresses (glui32), so stuffing them into a long is safe.
+            if (!line_request_uni) {
+                tempbufkey = (long)[decoder decodeInt64ForKey:@"line_buffer"];
+                uint8_t *rawdata;
+                NSUInteger rawdatalen;
+                rawdata = (uint8_t *)[decoder decodeBytesForKey:@"line_buffer_data" returnedLength:&rawdatalen];
+                if (rawdata && rawdatalen) {
+                    tempbufdatalen = rawdatalen;
+                    tempbufdata = malloc(rawdatalen);
+                    memcpy(tempbufdata, rawdata, rawdatalen);
+                }
+            }
+            else {
+                tempbufkey = (long)[decoder decodeInt64ForKey:@"line_buffer"];
+                uint8_t *rawdata;
+                NSUInteger rawdatalen;
+                rawdata = (uint8_t *)[decoder decodeBytesForKey:@"line_buffer_data" returnedLength:&rawdatalen];
+                if (rawdata && rawdatalen) {
+                    tempbufdatalen = rawdatalen;
+                    tempbufdata = malloc(rawdatalen);
+                    memcpy(tempbufdata, rawdata, rawdatalen);
+                }
+            }
+        }
+
+        self.line_request_initial = [decoder decodeObjectForKey:@"line_request_initial"];
+        pending_echo_line_input = [decoder decodeBoolForKey:@"pending_echo_line_input"];
+        echo_line_input = [decoder decodeBoolForKey:@"echo_line_input"];
+        style = [decoder decodeInt32ForKey:@"style"];
+
+        self.streamtag = [decoder decodeObjectForKey:@"streamtag"];
+        // streamtag will be set later
+        self.echostreamtag = [decoder decodeObjectForKey:@"echostreamtag"];
+        // echostreamtag will be set later
+
+        bbox = [decoder decodeCGRectForKey:@"bbox"];
+        // styleset is not deserialized.
+    }
 	return self;
 }
 

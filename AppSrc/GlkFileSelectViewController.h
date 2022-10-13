@@ -30,7 +30,7 @@
 @property (nonatomic, strong) NSMutableArray *filelist;
 @property (nonatomic, strong) NSDateFormatter *dateformatter;
 
-- (instancetype) initWithNibName:(NSString *)nibName prompt:(GlkFileRefPrompt *)prompt bundle:(NSBundle *)nibBundle NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithNibName:(NSString *)nibName prompt:(GlkFileRefPrompt *)prompt bundle:(NSBundle *)nibBundle;
 - (void) addBlankThumb;
 - (IBAction) buttonCancel:(id)sender;
 - (IBAction) buttonSave:(id)sender;

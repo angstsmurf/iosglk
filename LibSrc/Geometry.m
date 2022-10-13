@@ -48,17 +48,19 @@
 }
 
 - (instancetype) initWithCoder:(NSCoder *)decoder {
-	self.dir = [decoder decodeInt32ForKey:@"dir"]; // use setter to set vertical and backward too
-	division = [decoder decodeInt32ForKey:@"division"];
-	hasborder = [decoder decodeBoolForKey:@"hasborder"];
-				 
-	self.keytag = [decoder decodeObjectForKey:@"keytag"];
-	// self.keystyleset will have to be filled in later, once all the windows are loaded
-
-	size = [decoder decodeInt32ForKey:@"size"];
-	self.child1tag = [decoder decodeObjectForKey:@"child1tag"];
-	self.child2tag = [decoder decodeObjectForKey:@"child2tag"];
-	
+    self = [super init];
+    if (self) {
+        self.dir = [decoder decodeInt32ForKey:@"dir"]; // use setter to set vertical and backward too
+        division = [decoder decodeInt32ForKey:@"division"];
+        hasborder = [decoder decodeBoolForKey:@"hasborder"];
+        
+        self.keytag = [decoder decodeObjectForKey:@"keytag"];
+        // self.keystyleset will have to be filled in later, once all the windows are loaded
+        
+        size = [decoder decodeInt32ForKey:@"size"];
+        self.child1tag = [decoder decodeObjectForKey:@"child1tag"];
+        self.child2tag = [decoder decodeObjectForKey:@"child2tag"];
+    }
 	return self;
 }
 

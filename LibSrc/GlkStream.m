@@ -56,21 +56,23 @@
 }
 
 - (instancetype) initWithCoder:(NSCoder *)decoder {
-	self.tag = [decoder decodeObjectForKey:@"tag"];
-	inlibrary = YES;
-	// self.library will be set later
-	
-	type = [decoder decodeInt32ForKey:@"type"];
-	rock = [decoder decodeInt32ForKey:@"rock"];
-	// disprock is handled by the app
+    self = [super init];
+    if (self) {
+        self.tag = [decoder decodeObjectForKey:@"tag"];
+        inlibrary = YES;
+        // self.library will be set later
 
-	unicode = [decoder decodeBoolForKey:@"unicode"];
+        type = [decoder decodeInt32ForKey:@"type"];
+        rock = [decoder decodeInt32ForKey:@"rock"];
+        // disprock is handled by the app
 
-	readcount = [decoder decodeInt32ForKey:@"readcount"];
-	writecount = [decoder decodeInt32ForKey:@"writecount"];
-	readable = [decoder decodeBoolForKey:@"readable"];
-	writable = [decoder decodeBoolForKey:@"writable"];
+        unicode = [decoder decodeBoolForKey:@"unicode"];
 
+        readcount = [decoder decodeInt32ForKey:@"readcount"];
+        writecount = [decoder decodeInt32ForKey:@"writecount"];
+        readable = [decoder decodeBoolForKey:@"readable"];
+        writable = [decoder decodeBoolForKey:@"writable"];
+    }
 	return self;
 }
 

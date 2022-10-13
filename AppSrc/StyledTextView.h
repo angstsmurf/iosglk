@@ -54,7 +54,7 @@
 @property (nonatomic, strong) TextSelectView *selectionview;
 @property (nonatomic, readonly) CGRect selectionarea;
 
-- (instancetype) initWithFrame:(CGRect)frame margin:(UIEdgeInsets)margin styles:(StyleSet *)stylesval NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithFrame:(CGRect)frame margin:(UIEdgeInsets)margin styles:(StyleSet *)stylesval;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) UIScrollView *inputholder;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) CmdTextField *inputfield;
 - (void) acceptStyleset:(StyleSet *)stylesval;
@@ -94,7 +94,7 @@
 @property (nonatomic) int vlinestart;
 @property (nonatomic) int vlineend;
 
-- (instancetype) initWithFrame:(CGRect)frame styles:(StyleSet *)styleset vlines:(NSArray *)vlines NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithFrame:(CGRect)frame styles:(StyleSet *)styleset vlines:(NSArray *)vlines;
 
 @end
 

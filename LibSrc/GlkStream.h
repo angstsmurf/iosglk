@@ -42,7 +42,7 @@ typedef enum GlkStreamType_enum {
 @property (nonatomic, readonly) BOOL readable;
 @property (nonatomic, readonly) BOOL writable;
 
-- (instancetype) initWithType:(GlkStreamType)strtype readable:(BOOL)isreadable writable:(BOOL)iswritable rock:(glui32)strrock NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithType:(GlkStreamType)strtype readable:(BOOL)isreadable writable:(BOOL)iswritable rock:(glui32)strrock;
 - (void) streamDelete;
 - (void) fillResult:(stream_result_t *)result;
 - (void) setPosition:(glsi32)pos seekmode:(glui32)seekmode;
@@ -69,7 +69,7 @@ typedef enum GlkStreamType_enum {
 @property (nonatomic, strong) GlkWindow *win;
 @property (nonatomic, strong) NSNumber *wintag;
 
-- (instancetype) initWithWindow:(GlkWindow *)win NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithWindow:(GlkWindow *)win;
 
 @end
 
@@ -97,8 +97,8 @@ typedef enum GlkStreamType_enum {
 @property (nonatomic, readonly) unsigned char *buf;
 @property (nonatomic, readonly) glui32 *ubuf;
 
-- (instancetype) initWithMode:(glui32)fmode rock:(glui32)rockval buf:(char *)buf len:(glui32)buflen NS_DESIGNATED_INITIALIZER;
-- (instancetype) initUniWithMode:(glui32)fmode rock:(glui32)rockval buf:(glui32 *)ubufval len:(glui32)ubuflenval NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithMode:(glui32)fmode rock:(glui32)rockval buf:(char *)buf len:(glui32)buflen;
+- (instancetype) initUniWithMode:(glui32)fmode rock:(glui32)rockval buf:(glui32 *)ubufval len:(glui32)ubuflenval;
 - (void) updateRegisterArray;
 
 @end
@@ -129,7 +129,7 @@ typedef enum GlkStreamType_enum {
 @property (nonatomic) unsigned long long offsetinfile;
 
 - (instancetype) initWithMode:(glui32)fmode rock:(glui32)rockval unicode:(BOOL)unicode fileref:(GlkFileRef *)fref;
-- (instancetype) initWithMode:(glui32)fmode rock:(glui32)rockval unicode:(BOOL)isunicode textmode:(BOOL)istextmode dirname:(NSString *)dirname pathname:(NSString *)pathname NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithMode:(glui32)fmode rock:(glui32)rockval unicode:(BOOL)isunicode textmode:(BOOL)istextmode dirname:(NSString *)dirname pathname:(NSString *)pathname;
 
 - (void) flush;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL reopenInternal;

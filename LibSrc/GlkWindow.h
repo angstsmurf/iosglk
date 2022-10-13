@@ -76,7 +76,7 @@
 
 + (GlkWindow *) windowWithType:(glui32)type rock:(glui32)rock;
 
-- (instancetype) initWithType:(glui32)type rock:(glui32)rock NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithType:(glui32)type rock:(glui32)rock;
 - (void) updateRegisterArray;
 - (void) windowCloseRecurse:(BOOL)recurse;
 - (void) windowRearrange:(CGRect)box;
@@ -147,7 +147,7 @@
 @property (nonatomic, strong) GlkWindow *child1;
 @property (nonatomic, strong) GlkWindow *child2;
 
-- (instancetype) initWithMethod:(glui32)method keywin:(GlkWindow *)keywin size:(glui32)size NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithMethod:(glui32)method keywin:(GlkWindow *)keywin size:(glui32)size;
 
 @end
 

@@ -145,20 +145,22 @@
 }
 
 - (instancetype) initWithCoder:(NSCoder *)decoder {
-	self.tag = [decoder decodeObjectForKey:@"tag"];
-	inlibrary = YES;
-	// self.library will be set later
-
-	rock = [decoder decodeInt32ForKey:@"rock"];
-	// disprock is handled by the app
-	
-	self.filename = [decoder decodeObjectForKey:@"filename"];
-	self.basedir = [GlkFileRef unrelativizePath:[decoder decodeObjectForKey:@"basedir"]];
-	self.dirname = [GlkFileRef unrelativizePath:[decoder decodeObjectForKey:@"dirname"]];
-	self.pathname = [GlkFileRef unrelativizePath:[decoder decodeObjectForKey:@"pathname"]];
-	filetype = [decoder decodeInt32ForKey:@"filetype"];
-	textmode = [decoder decodeBoolForKey:@"textmode"];
-	
+    self = [super init];
+    if (self) {
+        self.tag = [decoder decodeObjectForKey:@"tag"];
+        inlibrary = YES;
+        // self.library will be set later
+        
+        rock = [decoder decodeInt32ForKey:@"rock"];
+        // disprock is handled by the app
+        
+        self.filename = [decoder decodeObjectForKey:@"filename"];
+        self.basedir = [GlkFileRef unrelativizePath:[decoder decodeObjectForKey:@"basedir"]];
+        self.dirname = [GlkFileRef unrelativizePath:[decoder decodeObjectForKey:@"dirname"]];
+        self.pathname = [GlkFileRef unrelativizePath:[decoder decodeObjectForKey:@"pathname"]];
+        filetype = [decoder decodeInt32ForKey:@"filetype"];
+        textmode = [decoder decodeBoolForKey:@"textmode"];
+    }
 	return self;
 }
 

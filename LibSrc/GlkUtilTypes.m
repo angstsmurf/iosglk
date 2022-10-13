@@ -44,10 +44,13 @@
 }
 
 - (instancetype) initWithCoder:(NSCoder *)decoder {
-	index = [decoder decodeIntForKey:@"index"];
-	status = [decoder decodeIntForKey:@"status"];
-	self.arr = [decoder decodeObjectForKey:@"arr"];
-	return self;
+    self = [super init];
+    if (self) {
+        index = [decoder decodeIntForKey:@"index"];
+        status = [decoder decodeIntForKey:@"status"];
+        self.arr = [decoder decodeObjectForKey:@"arr"];
+    }
+    return self;
 }
 
 /* Standard copy method. Returns a retained object which is a (shallow) copy. (Skip the cached elements.) */
@@ -190,10 +193,13 @@
 }
 
 - (instancetype) initWithCoder:(NSCoder *)decoder {
-	self.str = [decoder decodeObjectForKey:@"str"];
-	style = [decoder decodeInt32ForKey:@"style"];
-	pos = [decoder decodeIntForKey:@"pos"];
-	ismutable = NO;
+    self = [super init];
+    if (self) {
+        self.str = [decoder decodeObjectForKey:@"str"];
+        style = [decoder decodeInt32ForKey:@"style"];
+        pos = [decoder decodeIntForKey:@"pos"];
+        ismutable = NO;
+    }
 	return self;
 }
 
@@ -435,32 +441,34 @@
 }
 
 - (instancetype) initWithCoder:(NSCoder *)decoder {
-	dirty = YES; // when loaded, all dirty
-	width = [decoder decodeIntForKey:@"width"];
-	maxwidth = [decoder decodeIntForKey:@"maxwidth"];
-
-	chars = (glui32 *)malloc(maxwidth * sizeof(glui32));
-	styles = (glui32 *)malloc(maxwidth * sizeof(glui32));
-	for (int ix=0; ix<maxwidth; ix++) {
-		chars[ix] = ' ';
-		styles[ix] = style_Normal;
-	}
-	
-	NSUInteger len;
-	uint8_t *tmpchars = (uint8_t *)[decoder decodeBytesForKey:@"chars" returnedLength:&len];
-	if (tmpchars) {
-		if (len > maxwidth * sizeof(glui32))
-			len = maxwidth * sizeof(glui32);
-		memcpy(chars, tmpchars, len);
-	}
-
-	uint8_t *tmpstyles = (uint8_t *)[decoder decodeBytesForKey:@"styles" returnedLength:&len];
-	if (tmpstyles) {
-		if (len > maxwidth * sizeof(glui32))
-			len = maxwidth * sizeof(glui32);
-		memcpy(styles, tmpstyles, len);
-	}
-
+    self = [super init];
+    if (self) {
+        dirty = YES; // when loaded, all dirty
+        width = [decoder decodeIntForKey:@"width"];
+        maxwidth = [decoder decodeIntForKey:@"maxwidth"];
+        
+        chars = (glui32 *)malloc(maxwidth * sizeof(glui32));
+        styles = (glui32 *)malloc(maxwidth * sizeof(glui32));
+        for (int ix=0; ix<maxwidth; ix++) {
+            chars[ix] = ' ';
+            styles[ix] = style_Normal;
+        }
+        
+        NSUInteger len;
+        uint8_t *tmpchars = (uint8_t *)[decoder decodeBytesForKey:@"chars" returnedLength:&len];
+        if (tmpchars) {
+            if (len > maxwidth * sizeof(glui32))
+                len = maxwidth * sizeof(glui32);
+            memcpy(chars, tmpchars, len);
+        }
+        
+        uint8_t *tmpstyles = (uint8_t *)[decoder decodeBytesForKey:@"styles" returnedLength:&len];
+        if (tmpstyles) {
+            if (len > maxwidth * sizeof(glui32))
+                len = maxwidth * sizeof(glui32);
+            memcpy(styles, tmpstyles, len);
+        }
+    }
 	return self;
 }
 
