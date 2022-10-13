@@ -69,7 +69,7 @@ typedef enum GlkStyledLineStatus_enum {
 @end
 
 
-@interface GlkVisualLine : NSObject <NSSecureCoding> {
+@interface GlkVisualLine : NSObject {
 	StyleSet *styleset;
 	int vlinenum; /* This vline's index in the vlines array */
 	int linenum; /* The raw line number that this vline belongs to */
@@ -107,7 +107,7 @@ typedef enum GlkStyledLineStatus_enum {
 @end
 
 
-@interface GlkVisualString : NSObject <NSSecureCoding> {
+@interface GlkVisualString : NSObject {
 	NSString *str;
 	glui32 style;
 }

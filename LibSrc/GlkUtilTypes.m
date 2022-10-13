@@ -240,10 +240,6 @@
 @synthesize linenum;
 @synthesize accessel;
 
-+ (BOOL) supportsSecureCoding {
-    return YES;
-}
-
 - (id) initWithStrings:(NSArray *)strings styles:(StyleSet *)styles {
 	self = [super init];
 	
@@ -384,7 +380,6 @@
 	}
 	return accessel;
 }
-
 
 @end
 
