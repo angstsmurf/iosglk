@@ -25,7 +25,7 @@ typedef enum GlkStyledLineStatus_enum {
 	linestat_ClearPage=2
 } GlkStyledLineStatus;
 
-@interface GlkStyledLine : NSObject {
+@interface GlkStyledLine : NSObject <NSSecureCoding> {
 	int index; /* index in the window's lines array (but not necessarily zero-based) */
 	GlkStyledLineStatus status;
 	NSMutableArray *arr; /* array of GlkStyledString */
@@ -51,7 +51,7 @@ typedef enum GlkStyledLineStatus_enum {
 @end
 
 
-@interface GlkStyledString : NSObject {
+@interface GlkStyledString : NSObject <NSSecureCoding> {
 	NSString *str; /* may be NSMutableString */
 	BOOL ismutable;
 	glui32 style;
@@ -69,7 +69,7 @@ typedef enum GlkStyledLineStatus_enum {
 @end
 
 
-@interface GlkVisualLine : NSObject {
+@interface GlkVisualLine : NSObject <NSSecureCoding> {
 	StyleSet *styleset;
 	int vlinenum; /* This vline's index in the vlines array */
 	int linenum; /* The raw line number that this vline belongs to */
@@ -107,7 +107,7 @@ typedef enum GlkStyledLineStatus_enum {
 @end
 
 
-@interface GlkVisualString : NSObject {
+@interface GlkVisualString : NSObject <NSSecureCoding> {
 	NSString *str;
 	glui32 style;
 }
@@ -120,7 +120,7 @@ typedef enum GlkStyledLineStatus_enum {
 @end
 
 
-@interface GlkGridLine : NSObject {
+@interface GlkGridLine : NSObject <NSSecureCoding> {
 	BOOL dirty;
 	int width;
 	glui32 *chars; // malloced array (size maxwidth)

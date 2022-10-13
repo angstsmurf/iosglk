@@ -23,6 +23,10 @@
 @synthesize concatline;
 @synthesize accessel;
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 - (id) initWithIndex:(int)indexval {
 	return [self initWithIndex:indexval status:linestat_Continue];
 }
@@ -168,6 +172,10 @@
 @synthesize style;
 @synthesize pos;
 
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
+
 - (id) initWithText:(NSString *)initstr style:(glui32)initstyle {
 	self = [super init];
 	
@@ -231,6 +239,10 @@
 @synthesize vlinenum;
 @synthesize linenum;
 @synthesize accessel;
+
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
 
 - (id) initWithStrings:(NSArray *)strings styles:(StyleSet *)styles {
 	self = [super init];
@@ -406,6 +418,10 @@
 @synthesize dirty;
 @synthesize chars;
 @synthesize styles;
+
++ (BOOL) supportsSecureCoding {
+    return YES;
+}
 
 - (id) init {
 	self = [super init];
