@@ -58,16 +58,14 @@ static BOOL oldstyleui = NO; /* true for everything *before* iOS7 */
 	/* Set library.glkdelegate to a default value, if the glkviewc doesn't provide one. (Remember, from now on, that glkviewc.glkdelegate may be null!) */
 
     UITabBarController *rootNavigationController = (UITabBarController *)self.window.rootViewController;
+    UINavigationController *gameNavController = (UINavigationController *)rootNavigationController.viewControllers[0];
 
-    _glkviewc = (IosGlkViewController *)rootNavigationController.viewControllers[0];
+    _glkviewc = (IosGlkViewController *)gameNavController.viewControllers[0];
 
     if (_glkviewc.glkdelegate)
         library.glkdelegate = _glkviewc.glkdelegate;
 	else
 		library.glkdelegate = [DefaultGlkLibDelegate singleton];
-
-//    TerpGlkViewController *terpviewc = (TerpGlkViewController *)_glkviewc;
-//    [terpviewc setupBindings:rootNavigationController];
 	
     [[NSNotificationCenter defaultCenter] addObserver:_glkviewc
 											 selector:@selector(keyboardWillBeShown:)
